@@ -24,3 +24,14 @@ if __name__ == "__main__":
     # Complete the data processing steps using numpy here.
 
     # Save the output to OUTFILE using numpy routines.
+     # Load data from the input file
+    data = np.loadtxt(INFILE, delimiter=',')
+
+    # Modify the data to have a mean of 0
+    data_mean_zero = data - np.mean(data, axis=0)
+
+    # Modify the zero mean data to have a standard deviation of 1
+    data_processed = data_mean_zero / np.std(data_mean_zero, axis=0)
+
+    # Save the processed data to OUTFILE using numpy routines
+    np.savetxt(OUTFILE, data_processed, delimiter=',')

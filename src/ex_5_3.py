@@ -16,4 +16,15 @@ if __name__ == "__main__":
     # Tests will run your command using a system call.
     # To test your program with arguments, run it from the command line
     # (see README.md for more details)
-    pass
+    # Create an argument parser object
+    parser = ArgumentParser(description="This program applies a standard scale transform to the data in infile and writes it to outfile.")
+
+    # Add positional arguments for the input and output files
+    parser.add_argument("infile", help="The input filename for the data file to be processed.")
+    parser.add_argument("outfile", help="The output filename for the processed data.")
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    # Call the process_data function with the infile and outfile arguments
+    process_data(args.infile, args.outfile)

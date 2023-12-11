@@ -1,4 +1,7 @@
 """ex_5_1.py"""
+python ex_5_1.py C:\Users\karuna\OneDrive\exercise-set-5-kupadhya-ctrl\example.txt
+
+import argparse
 try:
     from src.ex_5_0 import line_count
 except ImportError:
@@ -17,4 +20,14 @@ if __name__ == "__main__":
     # Tests will run your command using a system call.
     # To test your program with arguments, run it from the command line
     # (see README.md for more details)
-    pass
+   # Create an argument parser object
+    parser = argparse.ArgumentParser(description="This program prints the number of lines in infile.")
+
+    # Add a positional argument for the input file
+    parser.add_argument("infile", help="The input file to count lines from.")
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    # Call the main function with the infile argument
+    main(args.infile)
