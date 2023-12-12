@@ -1,6 +1,5 @@
 """ex_5_1.py"""
-python ex_5_1.py C:\Users\karuna\OneDrive\exercise-set-5-kupadhya-ctrl\example.txt
-
+python ex_5_1.py C:\Users\karun\OneDrive\Desktop\exercise-set-5-kupadhya-ctrl\src
 import argparse
 try:
     from src.ex_5_0 import line_count
