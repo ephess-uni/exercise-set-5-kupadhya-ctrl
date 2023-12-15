@@ -1,35 +1,17 @@
-python ex_5_1.py "C:\\Users\\karun\\OneDrive\\Desktop\\exercise-set-5-kupadhya-ctrl\\src"
-
-import argparse
 import os
-from subprocess import check_output
+import subprocess
 
-try:
-    from src.ex_5_0 import line_count
-except ImportError:
-    from ex_5_0 import line_count
+MODULE_PATH = "src/ex_5_1.py"
 
-def main(infile):
-    """Call line_count with the infile argument."""
-    if os.path.isdir(infile):
-        # If the input is a directory, list files and call line_count for each file
-        for root, dirs, files in os.walk(infile):
-            for file in files:
-                file_path = os.path.join(root, file)
-                line_count(file_path)
-    else:
-        # If the input is a file, call line_count directly
-        line_count(infile)
 
-if __name__ == "__main__":
-    # Create an argument parser object
-    parser = argparse.ArgumentParser(description="This program prints the number of lines in infile.")
+def test_ex_5_1_has_description(capfd):
+    subprocess.run(['python', MODULE_PATH, '-h'], check=True)
+    out_fd, _ = capfd.readouterr()
+    assert "This program prints the number of lines in infile." in out_fd
 
-    # Add a positional argument for the input file or directory
-    parser.add_argument("infile", help="The input file or directory to count lines from.")
+def test_ex_5_1_prints_correct_line_count(capfd):
+    infile_fixture = os.path.join(os.path.dirname(__file__), "fixtures", "ex_5_0_fixture.txt")
+    subprocess.run(['python', MODULE_PATH, infile_fixture], check=True)
+    out, _ = capfd.readouterr()
+    assert out == "6\n"  # Adjust the expected line count as per your actual file
 
-    # Parse the command-line arguments
-    args = parser.parse_args()
-
-    # Call the main function with the infile argument
-    main(args.infile)
