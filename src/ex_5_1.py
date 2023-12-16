@@ -1,17 +1,24 @@
-import os
-import subprocess
+# ex_5_1.py
 
-MODULE_PATH = "src/ex_5_1.py"
+try:
+    from src.ex_5_0 import line_count
+except ImportError:
+    from ex_5_0 import line_count
 
+def main(infile):
+    """Call line_count with the infile argument."""
+    line_count(infile)
 
-def test_ex_5_1_has_description(capfd):
-    subprocess.run(['python', MODULE_PATH, '-h'], check=True)
-    out_fd, _ = capfd.readouterr()
-    assert "This program prints the number of lines in infile." in out_fd
-
-def test_ex_5_1_prints_correct_line_count(capfd):
-    infile_fixture = os.path.join(os.path.dirname(__file__), "fixtures", "ex_5_0_fixture.txt")
-    subprocess.run(['python', MODULE_PATH, infile_fixture], check=True)
-    out, _ = capfd.readouterr()
-    assert out == "6\n"  # Adjust the expected line count as per your actual file
-
+if __name__ == "__main__":
+    # Create your argument parser object here.
+    # Collect the filename argument from the command line
+    # pass this argument to the main function above
+    # Tests will run your command using a system call.
+    # To test your program with arguments, run it from the command line
+    # (see README.md for more details)
+    import argparse
+    parser = argparse.ArgumentParser(description="This program prints the number of lines in infile.")
+    parser.add_argument('infile', help='provide file path', nargs='?')
+    args = parser.parse_args()
+    if args.infile:
+        main(args.infile)
